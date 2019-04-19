@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Jquery Gallery</title>
+        <script src="jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                /* Enclose the images in an external DIV */
+                $("img").wrapAll("<div class='slideshow' />");
+                /* Hide all the images */
+                $("img").hide();
+                /* Recover the first image */
+                var current = $(".slideshow img:first-child");
+                /* Display only the current image (the first one) */
+                $(current).show();
+
+                /* Click listener for the 'next' button */
+                $("#nextbutton").click(function () {
+                    /* Preliminary check to avoid problems with compulsive clicks */
+                    if (!$(current).is(":animated")) {
+                        /* FadeOut of the current image */
+                        $(current).fadeOut("slow", function () {
+                            /* Calculate the next image */
+                            current = ($(current).next().is("img")) ? $(current).next() : $(".slideshow img:first-child");
+                            /* FadeIn of the new image */
+                            $(current).fadeIn("slow");
+                        });
+                    }
+                });
+
+                /* Click listener for the 'prev' button */
+                $("#prevbutton").click(function () {
+                    /* Preliminary check to avoid problems with compulsive clicks */
+                    if (!$(current).is(":animated")) {
+                        /* FadeOut of the current image */
+                        $(current).fadeOut("slow", function () {
+                            /* Calculate the next image */
+                            current = ($(current).prev().is("img")) ? $(current).prev() : $(".slideshow img:last-child");
+                            /* FadeIn of the new image */
+                            $(current).fadeIn("slow");
+                        });
+                    }
+                });
+            });
+        </script>
+        <style>
+            body {
+                background-color: #303c4f;
+                text-align: center;
+            }
+
+            button {
+                padding: 15px 50px 15px 50px;
+                margin-top: 15px;
+                border: 2px solid #fc9b00;
+                border-radius: 5px;
+                background-color: transparent;
+                color: #fc9b00;
+                font-weight: bold;
+            }
+
+            button:focus {
+                outline: 0;
+                box-shadow: none;
+            }
+
+            .slideshow {
+                margin-top: 50px;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="Images/1.jpg" />
+        <img src="Images/2.jpg" />
+        <img src="Images/3.jpg" />
+        <img src="Images/4.jpg" />
+
+        <button id="prevbutton">Prev</button>
+        <button id="nextbutton">Next</button>
+    </body>
+</html>
