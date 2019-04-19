@@ -2,12 +2,12 @@
 This exercise was designed to familiarize with the Ajax and Deferred technologies. 
 
 # Task Description
-Given the [*initial_template.html*](initial_template.html) web page as a starting point, which contains an image, a text field and a submit button, you'll need to write a Javascript function that manages the authentication protocol (as human - captcha system) to the server [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php).
+Given the [*initial_template.html*](initial_template.html) web page as a starting point, which contains an image (empty - no `src` attribute defined), a text field and a submit button, you'll need to write a Javascript function that manages the authentication protocol (as human - captcha system) to the server [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php).
 
 The server provides three different APIs for the authentication:
-1. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier): returns/generates a new `session ID`;
+1. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier): returns/generates a new `session ID` as a Json object (e.g. `{"id":464495}`);
 
-2. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getImage&id=<sessionid>](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getImage&id=<sessionid>): returns a CAPTCHA image name associates with the passed `session ID` (e.g. If the returned captcha name is `captcha//rD6gM4.png`, you can get/view the image by visiting this URL: [http://www.dais.unive.it/~cosmo/esercitazione3/captcha//rD6gM4.png](http://www.dais.unive.it/~cosmo/esercitazione3/captcha//rD6gM4.png));
+2. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getImage&id=<sessionid>](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getImage&id=<sessionid>): returns a CAPTCHA image name associates with the passed `session ID` as a Json object (e.g. `{"url":"captcha//rD6gM4.png","id":"464495"}`, so if the returned captcha name is `captcha//rD6gM4.png`, you can get/view the image by visiting the following URL: [http://www.dais.unive.it/~cosmo/esercitazione3/captcha//rD6gM4.png](http://www.dais.unive.it/~cosmo/esercitazione3/captcha//rD6gM4.png));
 
 3. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&sendCode&id=<sessionid>&code=<captcha_code>](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&sendCode&id=<sessionid>&code=<captcha_code>): by passing the `session ID` and the `captcha code` entered by the user to the server you can check the authentication result.
 
@@ -20,8 +20,6 @@ The Javascript code will have to manage all the steps of the authentication prot
 3. Waiting for the user to enter the CAPTCHA code and confirm it by clicking on the "OK" button;
 4. Sending the code to the server for verification;
 5. If the authentication is successful the system must print the phrase "Successful authentication", otherwise (failed) it must be restarted from point 1.
-
-You can find an example of how the authentication mechanism works at this address: [http://www.dais.unive.it/~cosmo/esercitazione3/](http://www.dais.unive.it/~cosmo/esercitazione3/)
 
 # Result/Testing
 You can run the developed application by opening the `final_result.html` through a browser. The expected result should be equals to the one represented in the following GIF:
