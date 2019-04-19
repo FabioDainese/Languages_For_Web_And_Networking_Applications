@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<title>Ajax</title>
+		<script src="jquery.min.js"></script>
+		<script>
+			var sessionId;
+			$(document).ready(function () {
+
+				$($("body")[0]).children().wrapAll("<div class='wrapper' />");
+				$("input").attr("placeholder", "Inserisci captcha...");
+
+				var verify = function () {
+					var checkCaptcha = $.Deferred();
+					$("#ok").click(function () {
+						checkCaptcha.resolve();
+					});
+
+					$('#captcha_code').keypress(function (e) {
+						if (e.which == 13) {	// Represent  the 'ENTER' button
+							$('#ok').click();
+						}
+					});
+
+					$.ajax({
+						type: 'GET',
+						url: " http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier",
+						dataType: 'jsonp'
+					}).then(function (data) {
+						sessionId = data.id;
+						return $.ajax({
+							type: 'GET',
+							url: 'http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getImage&id=' + sessionId,
+							dataType: 'jsonp'
+						});
+					}).then(function (data) {
+						var urlCaptcha = "http://www.dais.unive.it/~cosmo/esercitazione3/" + data.url;
+						$("#captcha").attr("src", urlCaptcha);
+						return checkCaptcha.promise()
+							.then(function (data) {
+								return data;
+							});
+					}).then(function (data) {
+						return $.ajax({
+							type: 'GET',
+							url: ' http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&sendCode&id=' + sessionId + '&code=' + $('#captcha_code').val(),
+							dataType: 'jsonp'
+						});
+					}).done(function (data) {
+						var result = data.auth;
+						if (result) {
+							$("body").html("<h1 class=\"success\">Successful authentication</h1>")
+						} else {
+							$(".error").remove();
+							$(".wrapper").append("<p class=\"error\">Wrong Captcha, Try again!<br>(new captcha generated - sometimes it may be equals to the previous one)</p>");
+							verify();
+						}
+					}).fail(function () {
+						window.alert("Error!");
+					});
+				};
+				verify();
+
+			});
+		</script>
+		<style>
+			body {
+				background-color: #293241;
+				text-align: center;
+			}
+
+			.wrapper {
+				width: 500px;
+				display: inline-block;
+			}
+
+			img {
+				width: 100%;
+				margin-bottom: 5px;
+				border-radius: 10px;
+				border: solid 1px #FF9F1C;
+			}
+
+			button {
+				width: 70px;
+				background-color: #FF9F1C;
+				padding: 10px 20px 10px 20px;
+				border: solid 1px #FF9F1C;
+				border-radius: 0 10px 10px 0;
+				color: #293241;
+				font-size: 18px;
+			}
+
+			input {
+				width: calc(100% - 70px);
+				background-color: transparent;
+				padding: 10px 20px 10px 20px;
+				border: solid 1px #FF9F1C;
+				border-radius: 10px 0 0 10px;
+				font-size: 18px;
+				color: white;
+			}
+
+			input:focus, button:focus {
+				outline: none;
+				box-shadow: none;
+			}
+
+			input::placeholder {
+				color: #8b8b8b;
+			}
+
+			.success {
+				text-align: center;
+				color: #44AF69;
+			}
+
+			.error {
+				text-align: center;
+				color: #EE6C4D;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Do NOT modify the BODY -->
+		<img id='captcha' />
+		<br/>
+		<input type='text' id='captcha_code' />
+		<button id="ok">OK</button>
+	</body>
+</html>
