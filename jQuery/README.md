@@ -13,7 +13,7 @@ The only parts that can be changed on the provided HTML page are the `SCRIPT` an
 It's not allowed using `FOR/FOREACH` cycles (neither the `EACH` jQuery function) to slide through the elements (images). You cannot use external plugins or libraries for the gallery management.
 
 # Result/Testing
-You can run the developed application by opening the `final_result.html` through a browser. The expected result should be equals to the one represented in the following GIF.
+You can run the developed application by opening the `final_result.html` through a browser. The expected result should be equals to the one represented in the following GIF:
 
 <p align="center">
   <img src="https://github.com/FabioDainese/Languages_for_Web_and_Networking_Applications/blob/master/jQuery/Images/result.gif" alt="GIF result">
