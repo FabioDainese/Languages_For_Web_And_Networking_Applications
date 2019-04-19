@@ -15,4 +15,6 @@ In the `Scripts/render.js` file you'll find the implentation of the Javascript/T
 
 **N.B.** In order to execute succesfully and without any erros this task you'll need to run it through a local web server (e.g. [200 Ok - Chrome Web Server](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en))
 
-![GIF Result](https://github.com/FabioDainese/Languages_for_Web_and_Networking_Applications/blob/master/WebGL%20and%20ThreeJS/Images/result.gif)
+<p align="center">
+  <img src="https://github.com/FabioDainese/Languages_for_Web_and_Networking_Applications/blob/master/WebGL%20and%20ThreeJS/Images/result.gif" alt="GIF result">
+</p>
