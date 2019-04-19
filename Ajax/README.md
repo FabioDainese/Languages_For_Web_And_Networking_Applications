@@ -1,5 +1,5 @@
 # Introduction
-This exercise was designed to familiarize with the [jQuery](https://jquery.com/) library. 
+This exercise was designed to familiarize with the Ajax and Deferred technologies. 
 
 # Task Description
 Given [this](initial_template.html) HTML web page as a starting point, which contains an image, a text field and a submit button, you'll need to write a Javascript function that manages the authentication protocol (as human - captcha system) to the server [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php).
