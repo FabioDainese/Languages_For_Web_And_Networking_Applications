@@ -2,7 +2,7 @@
 This exercise was designed to familiarize with the Ajax and Deferred technologies. 
 
 # Task Description
-Given [this](initial_template.html) HTML web page as a starting point, which contains an image, a text field and a submit button, you'll need to write a Javascript function that manages the authentication protocol (as human - captcha system) to the server [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php).
+Given the [*initial_template.html*](initial_template.html) web page as a starting point, which contains an image, a text field and a submit button, you'll need to write a Javascript function that manages the authentication protocol (as human - captcha system) to the server [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php).
 
 The server provides three different APIs for the authentication:
 1. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&getIdentifier): returns/generates a new `session ID`;
@@ -22,3 +22,10 @@ The Javascript code will have to manage all the steps of the authentication prot
 5. If the authentication is successful the system must print the phrase "Successful authentication", otherwise (failed) it must be restarted from point 1.
 
 You can find an example of how the authentication mechanism works at this address: [http://www.dais.unive.it/~cosmo/esercitazione3/](http://www.dais.unive.it/~cosmo/esercitazione3/)
+
+# Result/Testing
+You can run the developed application by opening the `final_result.html` through a browser. The expected result should be equals to the one represented in the following GIF:
+
+<p align="center">
+  <img src="https://github.com/FabioDainese/Languages_for_Web_and_Networking_Applications/blob/master/Ajax/Images/result.gif" alt="GIF result">
+</p>
