@@ -11,7 +11,7 @@ The server provides three different APIs for the authentication:
 
 3. [http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&sendCode&id=<sessionid>&code=<captcha_code>](http://www.dais.unive.it/~cosmo/esercitazione3/captcha.php?callback=?&sendCode&id=<sessionid>&code=<captcha_code>): by passing the `session ID` and the `captcha code` entered by the user to the server you can check the authentication result.
 
-⋅⋅⋅The server will send back a JSON object like `{"auth" : true}` in case of successful authentication, or `{"auth" : false}` otherwise (failed).
+   The server will send back a JSON object like `{"auth" : true}` in case of successful authentication, or `{"auth" : false}` otherwise (failed).
  
 The Javascript code will have to manage all the steps of the authentication protocol using Deferred objects and Promises. The protocol behaves as described by the following steps:
 
