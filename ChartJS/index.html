@@ -1,0 +1,156 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Chart.JS</title>
+        <script src="Scripts/chart.js"></script>
+        <script src="Scripts/jquery.min.js"></script>
+        <style>
+        </style>
+        <script>
+            $(document).ready(function () {
+
+                var ctx = $("#myChart");
+                var canvas_width = $(".chart-container").width();
+
+                /**
+                 *  Change bubble radius based on the window/tab width (responsive behaviour) 
+                 */
+                window.addEventListener("resize", function(){
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.forEach((data) => {
+                            coeff = $(".chart-container").width() - canvas_width;
+                            data.r *= (coeff == 0) ? 1 : 1 + ((coeff * 0.02)/10);
+                        });
+                    });
+                    canvas_width = $(".chart-container").width();
+                    chart.update();
+                });
+
+                /**
+                 *  Weird (but the only one) way to set a chart background image <-- Not responsive :(
+                 */
+                Chart.pluginService.register({
+                    beforeDraw: function (chart, easing) {
+                        if (chart.config.options.chartArea) {
+                            ctx = chart.chart.ctx;
+                            chartArea = chart.chartArea;
+
+                            var image = new Image();
+                            image.src = 'Images/North-Italy.png';
+
+                            image.onload = function () {
+                                ctx.save();
+                                ctx.globalCompositeOperation = 'destination-over';
+                                var x = ctx.createPattern(image, 'no-repeat');
+                                ctx.rect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+                                ctx.fillStyle = x;
+                                ctx.fill();
+
+                                ctx.restore();
+                            };
+                            
+                        }
+                    }
+                });
+
+                var LIData = [{ "x": 8.078, "y": 45.420, "year": 2018, "magnitude": 1.2 }, { "x": 9.561, "y": 44.721, "year": 2017, "magnitude": 3.9 }, { "x": 10.407, "y": 45.912, "year": 2017, "magnitude": 2.8 }, { "x": 11.374, "y": 45.358, "year": 2016, "magnitude": 0.8 }];
+                var HIData = [{ "x": 12.066, "y": 46.452, "year": 2016, "magnitude": 6.3 }, { "x": 9.825, "y": 44.714, "year": 2016, "magnitude": 8.1 }, { "x": 11.803, "y": 44.714, "year": 2018, "magnitude": 5.4 }, { "x": 8.869, "y": 45.010, "year": 2016, "magnitude": 6.1 }];
+
+                var lowIntensity = {
+                    label: "Low Intensity",
+                    backgroundColor: "rgba(0,255,0,0.3)",
+                    borderWidth: 1,
+                    borderColor: "green"
+                };
+
+                var highIntensity = {
+                    label: "High Intensity",
+                    backgroundColor: "rgba(255,0,0,0.3)",
+                    borderWidth: 1,
+                    borderColor: "red"
+                };
+
+                var earthquakes = {
+                    datasets: [lowIntensity, highIntensity]
+                };
+
+                var chartOptions = {
+                    maintainAspectRatio: true,
+                    chartArea:{},
+                    tooltips: {
+                        displayColors: false,
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return ['Longitude: ' + tooltipItem.xLabel, 'Latitude: ' + tooltipItem.yLabel, 'Year: ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].year, 'Magnitude: ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].magnitude];
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: "Italian Earthquakes",
+                        fontSize: 40
+                    },
+                    scales: {
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Latitude",
+                                fontSize: 20
+                            },
+                            ticks: {
+                                suggestedMin: 43.5,
+                                suggestedMax: 47
+                            }
+                        }],
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Longitude",
+                                fontSize: 20
+                            },
+                            ticks: {
+                                suggestedMin: 6,
+                                suggestedMax: 14
+                            }
+                        }]
+                    },
+                    animation: false
+                };
+
+                var chart = new Chart(ctx, {
+                    type: "bubble",
+                    data: earthquakes,
+                    options: chartOptions
+                });
+
+                function addData(chart, data, nDataset) {
+
+                    data.sort(function (a, b) { return a.year - b.year; });
+
+                    for (i = 0; i < data.length; i++) {
+                        let element = data[i];
+
+                        element.r = element.magnitude * 4;
+                        
+                        setTimeout(function () {
+                            chart.data.datasets[nDataset].data.push(element);
+                            chart.update();
+                        }, (i + 1) * 1500);
+                        chart.update();
+                    }
+                }
+
+                addData(chart, LIData, 0);
+                addData(chart, HIData, 1);
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="chart-container" style="position: relative; height:90vh; width:80vw; margin-left: auto !important; margin-right: auto !important;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </body>
+</html>
